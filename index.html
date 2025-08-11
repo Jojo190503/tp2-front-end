@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de mots de passe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
+        <div class="text-center mb-8">
+            <h1 class="text-2xl font-bold text-gray-800 flex items-center justify-center gap-2">
+                🔐 Générateur de mots de passe
+            </h1>
+        </div>
+
+        <!-- Site web input -->
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Site web :</label>
+            <input type="text" id="website" placeholder="ex: www.gmail.com" 
+                   class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+        </div>
+
+        <!-- Longueur du mot de passe -->
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Longueur du mot de passe :</label>
+            <input type="range" id="lengthSlider" min="4" max="50" value="16" 
+                   class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider">
+            <div class="text-sm text-gray-600 mt-1">
+                <span id="lengthDisplay">16</span> caractères
+            </div>
+        </div>
+
+        <!-- Options -->
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-3">Options :</label>
+            <div class="grid grid-cols-2 gap-3">
+                <label class="flex items-center">
+                    <input type="checkbox" id="uppercase" checked class="mr-2 w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500">
+                    <span class="text-sm text-gray-700">Majuscules (A-Z)</span>
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" id="lowercase" checked class="mr-2 w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500">
+                    <span class="text-sm text-gray-700">Minuscules (a-z)</span>
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" id="numbers" checked class="mr-2 w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500">
+                    <span class="text-sm text-gray-700">Chiffres (0-9)</span>
+                </label>
+                <label class="flex items-center">
+                    <input type="checkbox" id="symbols" checked class="mr-2 w-4 h-4 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500">
+                    <span class="text-sm text-gray-700">Symboles (!@#$%)</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Bouton générer -->
+        <button id="generateBtn" class="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-indigo-700 transition duration-200 mb-4">
+            Générer un mot de passe
+        </button>
+
+        <!-- Indicateur de force -->
+        <div id="strengthIndicator" class="mb-6 hidden">
+            <div class="flex items-center gap-2 mb-1">
+                <div id="strengthBar" class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div id="strengthFill" class="h-full transition-all duration-300"></div>
+                </div>
+            </div>
+            <div id="strengthText" class="text-sm"></div>
+        </div>
+
+        <!-- Section mots de passe sauvegardés -->
+        <div class="border-t pt-6">
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">Mots de passe sauvegardés</h2>
+            
+            <!-- Statistiques -->
+            <div class="grid grid-cols-3 gap-4 mb-4">
+                <div class="text-center bg-gray-50 rounded-lg p-3">
+                    <div id="totalCount" class="text-2xl font-bold text-indigo-600">0</div>
+                    <div class="text-xs text-gray-600">Total</div>
+                </div>
+                <div class="text-center bg-gray-50 rounded-lg p-3">
+                    <div id="strongCount" class="text-2xl font-bold text-indigo-600">0</div>
+                    <div class="text-xs text-gray-600">Forts</div>
+                </div>
+                <div class="text-center bg-gray-50 rounded-lg p-3">
+                    <div id="avgLength" class="text-2xl font-bold text-indigo-600">0</div>
+                    <div class="text-xs text-gray-600">Longueur moy.</div>
+                </div>
+            </div>
+
+            <!-- Liste des mots de passe -->
+            <div id="passwordsList" class="space-y-2 max-h-48 overflow-y-auto">
+                <div class="text-center text-gray-500 text-sm py-4">
+                    Aucun mot de passe sauvegardé
+                </div>
+            </div>
+        </div>
+    </div>
+        <script src="script.js"></script>
+  
+</body>
+</html>
